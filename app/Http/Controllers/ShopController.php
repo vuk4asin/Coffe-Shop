@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rating;
+use App\Http\Resources\Rating as RatingResource;
 use App\Shop;
 
 class ShopController extends Controller
@@ -18,7 +20,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = Shop::paginate(5);
+        $shops = Shop::paginate(6);
         return view('shop.index')
             ->withShops($shops);
     }
@@ -99,12 +101,6 @@ class ShopController extends Controller
      */
     public function update(Request $request, Shop $shop)
     {
-        // $request->validate([
-        //     'name' => 'required|min:10|unique:shops',
-        //     'address' => 'required|min:12',
-        //     'picture' => 'required'
-        // ]);
-
        
        $shop->update([
            'name' => $request->name,
@@ -136,5 +132,14 @@ class ShopController extends Controller
     public function destroy(Shop $shop)
     {
         return $shop->delete();
+    }
+
+    public function setRating(Request $request)
+    {
+         return new RatingResource(Rating::create([
+            'shop_id' => $request->get('shop'),
+            'user_id' => $request->get('user'),
+            'rating' => $request->get('rating')
+         ]));
     }
 }

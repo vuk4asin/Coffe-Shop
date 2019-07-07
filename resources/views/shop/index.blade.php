@@ -26,18 +26,13 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-12">
-                                Address: {{ $shop->address }}
+                                <b>Address: </b> {{ $shop->address }}
                             </div>
                             <div class="col-md-12">
-                                Phone: {{ $shop->phone }}
+                               <b> Phone: </b> {{ $shop->phone }}
                             </div>
                             <div class="col-md-12">
-                                <label for="rating">Rating:</label>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                               <example-component></example-component>
                                 <a class="float-right ml-1" href="{{route('shops.edit', $shop->id)}}"><i class="fas fa-pen"></i></a>
                                 <a class="float-right mr-1" href="{{route('shops.show', $shop->id)}}"><i class="fas fa-align-justify"></i></a>
                             </div>
