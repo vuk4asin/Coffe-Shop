@@ -21,3 +21,10 @@
     </div>
 </div>
 @endsection
+@push('after-scripts')
+<script type="text/javascript">
+    window.setTimeout(() => {
+        window.location = "{{ url('/shops') }}";
+    },2000);
+</script>
+@endpush

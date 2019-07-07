@@ -18,7 +18,7 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone');
-            $table->text('picture');
+            $table->text('picture')->nullable();
             $table->timestamps();
         });
     }

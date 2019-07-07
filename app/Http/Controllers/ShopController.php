@@ -7,6 +7,10 @@ use App\Shop;
 
 class ShopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin'])->except(['index']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = Shop::all();
+        $shops = Shop::paginate(5);
         return view('shop.index')
             ->withShops($shops);
     }
@@ -38,16 +42,27 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:10',
+            'name' => 'required|min:10|unique:shops',
             'address' => 'required|min:12',
         ]);
 
-        // var_dump($request->all());
-        // die;
+        $shop = new Shop();
+        $shop->name = $request->name;
+        $shop->address = $request->address;
+        $shop->phone = $request->phone;
 
-        Shop::create($request->all());
+        if($request->hasFile('picture'))
+        {
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename =time().'.'.$extension;
+            $file->move('images', $filename);
+                
+            $shop->picture="images/".$filename;
+        }
+        $shop->save();
 
-        return view('shop.index');
+        return redirect()->route('shops.index');
     }
 
     /**
@@ -69,7 +84,10 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shop = Shop::find($id);
+
+        return view('shop.edit')
+            ->withShop($shop);
     }
 
     /**
@@ -79,9 +97,34 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Shop $shop)
     {
-        //
+        // $request->validate([
+        //     'name' => 'required|min:10|unique:shops',
+        //     'address' => 'required|min:12',
+        //     'picture' => 'required'
+        // ]);
+
+       
+       $shop->update([
+           'name' => $request->name,
+           'address'=> $request->address,
+           'phone' => $request->phone,
+           'picture' => $request->picture
+       ]);
+
+        if($request->hasFile('picture'))
+        {
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename =time().'.'.$extension;
+            $file->move('images', $filename);
+                
+            $shop->picture="images/".$filename;
+        }
+        $shop->save();
+
+        return redirect()->route('shops.index');
     }
 
     /**

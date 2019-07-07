@@ -6,7 +6,7 @@ use App\Shop;
 use Faker\Generator as Faker;
 
 $factory->define(Shop::class, function (Faker $faker) {
-    $filepath = storage_path('images');
+    $filepath = public_path('images');
 
     if (!File::exists($filepath)) {
         File::makeDirectory($filepath);
@@ -15,7 +15,6 @@ $factory->define(Shop::class, function (Faker $faker) {
         'name' => $faker->company,
         'address' => $faker->streetAddress,
         'phone' => $faker->phoneNumber,
-        'picture' =>  $faker->image('public/images', 640, 480, null, false)
-
+        'picture' => $faker->imageUrl(400, 300, 'food'),
     ];
 });

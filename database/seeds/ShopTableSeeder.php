@@ -12,6 +12,7 @@ class ShopTableSeeder extends Seeder
      */
     public function run()
     {
+        array_map('unlink', glob("public/images/*"));
         factory(Shop::class, 12)->create();
     }
 }

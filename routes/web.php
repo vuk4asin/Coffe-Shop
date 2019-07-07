@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('shops', 'ShopController');
+Route::post('shops/{shop}','ShopController@update')->name('shop.update');
+Route::resource('shops', 'ShopController')->except(['shops.update']);

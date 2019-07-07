@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
-
+ 
 .checked {
   color: orange;
 }
@@ -7,6 +7,8 @@
 .starrating > input {
   display: none;
 }
+
+.
 
 /* Remove radio buttons */
 
@@ -34,7 +36,7 @@
   color: #ffca08;
 }
 
-/* Set yellow color when star hover */
+Set yellow color when star hover */
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -78,6 +80,12 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+.pag-links {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
 }
 
 html {
